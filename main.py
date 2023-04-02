@@ -1,10 +1,13 @@
 from fpdf import FPDF
 
-
+# Instance of the class
 pdf = FPDF(orientation='P', unit='mm', format='A4')
 
+
+# creating a page
 pdf.add_page()
 
+# Page settings
 pdf.set_font(family='Times', style='B', size=12)
 pdf.cell(w=0, h=12, txt='Hello there', align='L', ln=1, border=1)
 pdf.set_font(family='Times', style='B', size=10)

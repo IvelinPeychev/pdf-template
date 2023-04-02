@@ -3,6 +3,7 @@ import pandas as pd
 
 
 pdf = FPDF(orientation='P', unit='mm', format='A4')
+pdf.set_auto_page_break(auto=False, margin=0)
 
 file = pd.read_csv('topics.csv')
 
@@ -17,10 +18,20 @@ for index, row in file.iterrows():
     pdf.cell(w=0, h=12, txt=row['Topic'], align='L', ln=1,)
     pdf.line(10, 20, 200, 20)
 
+    # setting the footer and setting it in func
+    def add_footer(mm):
+        pdf.ln(mm)
+        pdf.set_font(family='Times', style='B', size=8)
+        pdf.set_text_color(180, 180, 180)
+        pdf.cell(w=0, h=10, txt=row['Topic'], align='R')
+
+    add_footer(265)
+
     # we take the number of the pdf based of the number placed in the document and adding blank pages
     # We take -1 because of the title page above
     for number in range(int(row['Pages']) -1):
         pdf.add_page()
+        add_footer(277)
 
 
 pdf.output("output.pdf")
